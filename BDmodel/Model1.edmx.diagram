@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8a43d69fcae444aeafe57ec0b2e466db" Name="Diagram1">
+        <EntityTypeShape EntityType="SushkovBDModel.Driver" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SushkovBDModel.Order" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SushkovBDModel.RoleInTrailer" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SushkovBDModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SushkovBDModel.Trailer" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SushkovBDModel.TrailerDriver" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="SushkovBDModel.FK_TrailerDriver_Driver" ManuallyRouted="false" />
+        <AssociationConnector Association="SushkovBDModel.FK_TrailerDriver_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="SushkovBDModel.FK_TrailerDriver_RoleInTrailer" ManuallyRouted="false" />
+        <AssociationConnector Association="SushkovBDModel.FK_TrailerDriver_Trailer" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

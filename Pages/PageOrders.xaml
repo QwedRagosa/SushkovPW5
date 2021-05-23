@@ -1,0 +1,49 @@
+﻿<Page x:Class="SushkovPW5.Pages.PageOrders"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SushkovPW5.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PageOrders">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="374*"/>
+            <RowDefinition Height="75*"/>
+        </Grid.RowDefinitions>
+        <Button Content="Назад" Name="Backbtn1" VerticalAlignment="Bottom" 
+                HorizontalAlignment="Right" Padding="10" Width="100"
+                Margin="0,0,20,19.6" Click="Backbtn1_Click" Grid.Row="1" Height="38"></Button>
+        <DataGrid Name="OrderList" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" Width="*" Binding="{Binding Order.Name}"/>
+                <DataGridTextColumn Header="Пункт отправления" Width="*" Binding="{Binding Order.PointDep}"/>
+                <DataGridTextColumn Header="Пункт назначения" Width="*" Binding="{Binding Order.PointDest}"/>
+                <DataGridTextColumn Header="Расстоение" Width="*" Binding="{Binding Order.Distance}"/>
+                <DataGridTextColumn Header="Вес" Width="*" Binding="{Binding Order.Weight}"/>
+                <DataGridTextColumn Header="Водитель" Width="*" Binding="{Binding Driver.FullName}"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <Button Name="BtnDelete"
+                                        Content="Удалить"
+                                        Background="Red"
+                                        Click="BtnDelete_Click"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="20">
+            <Button Content="Cоздать" Name="Createbtn" Margin="20 0" Width="80" Click="Createbtn_Click"></Button>
+            <Button Content="Изменить" Name="Changebtn" Margin="20 0" Width="80" Click="Changebtn_Click"></Button>
+            <Button Content="Сорт. по расстоянию" Name="Sortdisttbtn" Margin="20 0" Width="140" Click="Sortdisttbtn_Click"></Button>
+            <Button Content="Сорт. по весу" Name="Sortweightbtn" Margin="20 0" Width="100" Click="Sortweightbtn_Click"></Button>
+        </StackPanel>
+
+    </Grid>
+</Page>

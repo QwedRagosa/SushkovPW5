@@ -1,0 +1,35 @@
+﻿<Page x:Class="SushkovPW5.Pages.PageOrderCreate"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SushkovPW5.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PageOrderCreate">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="371*"/>
+            <RowDefinition Height="78*"/>
+        </Grid.RowDefinitions>
+        <Button Content="Назад" Name="Backbtn1" VerticalAlignment="Bottom" 
+                HorizontalAlignment="Right" Padding="10" Width="100"
+                 Click="Backbtn1_Click" Height="38" Grid.Row="1" Margin="0,0,20,19.6"/>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Width="200">
+            <TextBlock Name="Nametbl" Text="Название" HorizontalAlignment="Center"/>
+            <TextBox Name="Nametbx" Width="130"/>
+            <TextBlock Name="Depttbl" Text="Отправление" HorizontalAlignment="Center"/>
+            <TextBox Name="Deptbx" Width="130"/>
+            <TextBlock Name="Desttbl" Text="Назначение" HorizontalAlignment="Center"/>
+            <TextBox Name="Desttbx" Width="130"/>
+            <TextBlock Name="Disttbl" Text="Расстояние" HorizontalAlignment="Center"/>
+            <TextBox Name="Disttbx" Width="80"/>
+            <TextBlock Name="Weighttbl" Text="Вес" HorizontalAlignment="Center"/>
+            <TextBox Name="Weighttbx" Width="80"/>
+            <TextBlock Name="Drivertbl" Text="Водитель" HorizontalAlignment="Center"/>
+            <ComboBox Name="DriverList" Width="130" RenderTransformOrigin="0.502,0.5" SelectionChanged="DriverList_SelectionChanged"/>
+            <Button Name="Createbtn" Content="Добавить" Width="100" Margin="0 20" Click="Createbtn_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

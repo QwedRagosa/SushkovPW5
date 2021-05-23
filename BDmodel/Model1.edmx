@@ -1,0 +1,386 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище SushkovBDModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PassportID" Type="int" Nullable="false" />
+          <Property Name="Rate" Type="int" Nullable="false" />
+          <Property Name="WorkExp" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PointDep" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PointDest" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Distance" Type="int" Nullable="false" />
+          <Property Name="Weight" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoleInTrailer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Trailer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CarBrand" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CarNumb" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CarCompany" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Carrying" Type="int" Nullable="false" />
+          <Property Name="FuelConsum" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Lenght" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="DelieveryCost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Exp" Type="int" />
+        </EntityType>
+        <EntityType Name="TrailerDriver">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDDriver" Type="int" />
+          <Property Name="IDTrailer" Type="int" />
+          <Property Name="IDOrder" Type="int" />
+          <Property Name="IDRoleInTrailer" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_TrailerDriver_Driver">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="0..1" />
+          <End Role="TrailerDriver" Type="Self.TrailerDriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrailerDriver">
+              <PropertyRef Name="IDDriver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrailerDriver_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="TrailerDriver" Type="Self.TrailerDriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrailerDriver">
+              <PropertyRef Name="IDOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrailerDriver_RoleInTrailer">
+          <End Role="RoleInTrailer" Type="Self.RoleInTrailer" Multiplicity="1" />
+          <End Role="TrailerDriver" Type="Self.TrailerDriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleInTrailer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrailerDriver">
+              <PropertyRef Name="IDRoleInTrailer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrailerDriver_Trailer">
+          <End Role="Trailer" Type="Self.Trailer" Multiplicity="0..1" />
+          <End Role="TrailerDriver" Type="Self.TrailerDriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trailer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrailerDriver">
+              <PropertyRef Name="IDTrailer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище SushkovBDModelContainer">
+          <EntitySet Name="Driver" EntityType="Self.Driver" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleInTrailer" EntityType="Self.RoleInTrailer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trailer" EntityType="Self.Trailer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrailerDriver" EntityType="Self.TrailerDriver" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TrailerDriver_Driver" Association="Self.FK_TrailerDriver_Driver">
+            <End Role="Driver" EntitySet="Driver" />
+            <End Role="TrailerDriver" EntitySet="TrailerDriver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrailerDriver_Order" Association="Self.FK_TrailerDriver_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="TrailerDriver" EntitySet="TrailerDriver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrailerDriver_RoleInTrailer" Association="Self.FK_TrailerDriver_RoleInTrailer">
+            <End Role="RoleInTrailer" EntitySet="RoleInTrailer" />
+            <End Role="TrailerDriver" EntitySet="TrailerDriver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrailerDriver_Trailer" Association="Self.FK_TrailerDriver_Trailer">
+            <End Role="Trailer" EntitySet="Trailer" />
+            <End Role="TrailerDriver" EntitySet="TrailerDriver" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SushkovBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PassportID" Type="Int32" Nullable="false" />
+          <Property Name="Rate" Type="Int32" Nullable="false" />
+          <Property Name="WorkExp" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TrailerDriver" Relationship="Self.FK_TrailerDriver_Driver" FromRole="Driver" ToRole="TrailerDriver" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PointDep" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PointDest" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Distance" Type="Int32" Nullable="false" />
+          <Property Name="Weight" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TrailerDriver" Relationship="Self.FK_TrailerDriver_Order" FromRole="Order" ToRole="TrailerDriver" />
+        </EntityType>
+        <EntityType Name="RoleInTrailer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TrailerDriver" Relationship="Self.FK_TrailerDriver_RoleInTrailer" FromRole="RoleInTrailer" ToRole="TrailerDriver" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Trailer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CarBrand" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CarNumb" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CarCompany" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Carrying" Type="Int32" Nullable="false" />
+          <Property Name="FuelConsum" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Lenght" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="DelieveryCost" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Exp" Type="Int32" />
+          <NavigationProperty Name="TrailerDriver" Relationship="Self.FK_TrailerDriver_Trailer" FromRole="Trailer" ToRole="TrailerDriver" />
+        </EntityType>
+        <EntityType Name="TrailerDriver">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDDriver" Type="Int32" />
+          <Property Name="IDTrailer" Type="Int32" />
+          <Property Name="IDOrder" Type="Int32" />
+          <Property Name="IDRoleInTrailer" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Driver" Relationship="Self.FK_TrailerDriver_Driver" FromRole="TrailerDriver" ToRole="Driver" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_TrailerDriver_Order" FromRole="TrailerDriver" ToRole="Order" />
+          <NavigationProperty Name="RoleInTrailer" Relationship="Self.FK_TrailerDriver_RoleInTrailer" FromRole="TrailerDriver" ToRole="RoleInTrailer" />
+          <NavigationProperty Name="Trailer" Relationship="Self.FK_TrailerDriver_Trailer" FromRole="TrailerDriver" ToRole="Trailer" />
+        </EntityType>
+        <Association Name="FK_TrailerDriver_Driver">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="0..1" />
+          <End Role="TrailerDriver" Type="Self.TrailerDriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrailerDriver">
+              <PropertyRef Name="IDDriver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrailerDriver_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="TrailerDriver" Type="Self.TrailerDriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrailerDriver">
+              <PropertyRef Name="IDOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrailerDriver_RoleInTrailer">
+          <End Role="RoleInTrailer" Type="Self.RoleInTrailer" Multiplicity="1" />
+          <End Role="TrailerDriver" Type="Self.TrailerDriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleInTrailer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrailerDriver">
+              <PropertyRef Name="IDRoleInTrailer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrailerDriver_Trailer">
+          <End Role="Trailer" Type="Self.Trailer" Multiplicity="0..1" />
+          <End Role="TrailerDriver" Type="Self.TrailerDriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trailer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrailerDriver">
+              <PropertyRef Name="IDTrailer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SushkovBDEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Driver" EntityType="Self.Driver" />
+          <EntitySet Name="Order" EntityType="Self.Order" />
+          <EntitySet Name="RoleInTrailer" EntityType="Self.RoleInTrailer" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Trailer" EntityType="Self.Trailer" />
+          <EntitySet Name="TrailerDriver" EntityType="Self.TrailerDriver" />
+          <AssociationSet Name="FK_TrailerDriver_Driver" Association="Self.FK_TrailerDriver_Driver">
+            <End Role="Driver" EntitySet="Driver" />
+            <End Role="TrailerDriver" EntitySet="TrailerDriver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrailerDriver_Order" Association="Self.FK_TrailerDriver_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="TrailerDriver" EntitySet="TrailerDriver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrailerDriver_RoleInTrailer" Association="Self.FK_TrailerDriver_RoleInTrailer">
+            <End Role="RoleInTrailer" EntitySet="RoleInTrailer" />
+            <End Role="TrailerDriver" EntitySet="TrailerDriver" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrailerDriver_Trailer" Association="Self.FK_TrailerDriver_Trailer">
+            <End Role="Trailer" EntitySet="Trailer" />
+            <End Role="TrailerDriver" EntitySet="TrailerDriver" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище SushkovBDModelContainer" CdmEntityContainer="SushkovBDEntities">
+          <EntitySetMapping Name="Driver">
+            <EntityTypeMapping TypeName="SushkovBDModel.Driver">
+              <MappingFragment StoreEntitySet="Driver">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="PassportID" ColumnName="PassportID" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="WorkExp" ColumnName="WorkExp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="SushkovBDModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PointDep" ColumnName="PointDep" />
+                <ScalarProperty Name="PointDest" ColumnName="PointDest" />
+                <ScalarProperty Name="Distance" ColumnName="Distance" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleInTrailer">
+            <EntityTypeMapping TypeName="SushkovBDModel.RoleInTrailer">
+              <MappingFragment StoreEntitySet="RoleInTrailer">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SushkovBDModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trailer">
+            <EntityTypeMapping TypeName="SushkovBDModel.Trailer">
+              <MappingFragment StoreEntitySet="Trailer">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CarBrand" ColumnName="CarBrand" />
+                <ScalarProperty Name="CarNumb" ColumnName="CarNumb" />
+                <ScalarProperty Name="CarCompany" ColumnName="CarCompany" />
+                <ScalarProperty Name="Carrying" ColumnName="Carrying" />
+                <ScalarProperty Name="FuelConsum" ColumnName="FuelConsum" />
+                <ScalarProperty Name="Lenght" ColumnName="Lenght" />
+                <ScalarProperty Name="DelieveryCost" ColumnName="DelieveryCost" />
+                <ScalarProperty Name="Exp" ColumnName="Exp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrailerDriver">
+            <EntityTypeMapping TypeName="SushkovBDModel.TrailerDriver">
+              <MappingFragment StoreEntitySet="TrailerDriver">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IDDriver" ColumnName="IDDriver" />
+                <ScalarProperty Name="IDTrailer" ColumnName="IDTrailer" />
+                <ScalarProperty Name="IDOrder" ColumnName="IDOrder" />
+                <ScalarProperty Name="IDRoleInTrailer" ColumnName="IDRoleInTrailer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
